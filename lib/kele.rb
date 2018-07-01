@@ -42,7 +42,7 @@ class Kele
 
     # initializing kele class by creating a new Kele client authorized with a username and password
     def initialize(email, password)
-        response = self.class.post('https://www.bloc.io/api/v1/sessions', body: { email: email, password: password })
+        response = self.class.post(api_url("sessions"), body: { email: email, password: password })
         @auth_token = response["auth_token"] # Used to obtain auth token required to make API requests
         raise "Invalid email address or password!" if response.code == 404
     end
@@ -57,18 +57,15 @@ class Kele
     def get_mentor_availability(mentor_id)
         # "mentor_id"=>2367142
         response = self.class.get(api_url("mentors/#{mentor_id}/student_availability"), headers: { "authorization" => @auth_token })
-        JSON.parse(response.body)
+        availability = []
+        JSON.parse(response.body).each do |free_time|
+            if free_time["booked"].nil?
+                availability << free_time
+            end
+        end
+        puts availability
+    end
 
-        #    availability = []
-    #    JSON.parse(response.body).each do |free_time|
-    #        if free_time["booked"].nil?
-    #            availability << free_time
-    #        end
-    #    end
-    #    puts availability
-    #end
-
-    
     # creating endpoint url for DRY code
     def api_url(endpoint)
         "https://www.bloc.io/api/v1/#{endpoint}"
