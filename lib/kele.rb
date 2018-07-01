@@ -49,7 +49,29 @@ class Kele
 
     # retrieving the current user
     def get_me
-        response = self.class.get('https://www.bloc.io/api/v1/users/me', headers: { "authorization" => @auth_token })
+        response = self.class.get(api_url("users/me"), headers: { "authorization" => @auth_token })
         JSON.parse(response.body)
     end
+
+    # retrieving mentor availability
+    def get_mentor_availability(mentor_id)
+        # "mentor_id"=>2367142
+        response = self.class.get(api_url("mentors/#{mentor_id}/student_availability"), headers: { "authorization" => @auth_token })
+        JSON.parse(response.body)
+
+        #    availability = []
+    #    JSON.parse(response.body).each do |free_time|
+    #        if free_time["booked"].nil?
+    #            availability << free_time
+    #        end
+    #    end
+    #    puts availability
+    #end
+
+    
+    # creating endpoint url for DRY code
+    def api_url(endpoint)
+        "https://www.bloc.io/api/v1/#{endpoint}"
+    end
+
 end
