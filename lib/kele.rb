@@ -6,6 +6,7 @@ require './lib/messages.rb'
 class Kele
     include HTTParty
     include Roadmap
+    include Messages
 
     base_uri 'https://www.bloc.io/api/v1/'
 
