@@ -11,4 +11,10 @@ module Roadmap
         response = self.class.get(api_url("checkpoints/#{checkpoint_id}"), headers: { "authorization" => @auth_token })
         JSON.parse(response.body)
     end
+
+    # retrieving remaining checkpoints 
+    def get_remaining_checkpoints(enrollment_chain)
+        response = self.class.get(api_url("enrollment_chains/#{enrollment_chain}/checkpoints_remaining_in_section"), headers: { "authorization" => @auth_token })
+        JSON.parse(response.body)
+    end
 end
