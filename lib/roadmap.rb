@@ -13,8 +13,10 @@ module Roadmap
     end
 
     # retrieving remaining checkpoints 
-    def get_remaining_checkpoints(enrollment_chain)
-        response = self.class.get(api_url("enrollment_chains/#{enrollment_chain}/checkpoints_remaining_in_section"), headers: { "authorization" => @auth_token })
+    def get_remaining_checkpoints(chain_id)
+        # "chain_id"=>6309
+        response = self.class.get(api_url("enrollment_chains/#{chain_id}/checkpoints_remaining_in_section"), headers: { "authorization" => @auth_token })
         JSON.parse(response.body)
     end
 end
+
