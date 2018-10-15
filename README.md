@@ -38,12 +38,16 @@ The Kele API Client can be used with an existing Bloc.io student's email and pas
     _**>> Kele.new("john@gmail.com", "Changeme111")**_
 
 You are now ready to interact with the API connection.
+
 3. To retrieve the current user as a JSON blob type the following:
     _**>> kele_client.get_me**_
+
 4. To retrieve a list of mentor's availability
     _**>> kele_client.get_mentor_availability(mentor_id)**_
+
 5. To retrieve their roadmaps
     _**>> kele_client.get_roadmap(roadmap_id)**_
+
 6. To retrieve a list of checkpoints remaining in current section
     _**>> kele_client.get_checkpoint(checkpoint_id)**_
 
